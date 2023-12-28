@@ -11,9 +11,12 @@ def home_view(request):
     Take in a request
     Return HTML as response
     """
-    name = request.GET['name']
-    print(name)
-    HTML_STRING = f"""
-    <h1>Hello {name}</h1>
+    
+    HTML_Title = f"""
+    <h1>{title}</h1>
+    """
+
+    HTML_content = f"""
+    <h1>Hello {content}</h1>
     """
     return HttpResponse(HTML_STRING)
