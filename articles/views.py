@@ -1,16 +1,19 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from .models import Article
+from .forms import ArticleForm
 
 # Create your views here.
 
+@login_required
 def article_create_view(request):
-    context={}
-    if request.method == 'POST':
-        body: dict = request.POST
-        title = body.get("title")
-        content = body.get("content")
-        article = Article.objects.create(title=title, content=content)
+    form = ArticleForm(request.POST or None)
+    context={
+        "form": form
+    }
+    if form.is_valid():
+        article = form.save()
         context['article'] = article
 
     return render(request, "articles/create.html", context=context)
