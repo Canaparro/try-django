@@ -5,14 +5,15 @@
     </head>
     <body>
 
-        <form>
-            <input type="text" name="query"/>
+        <form action="/articles" method="GET">
+            <input type="text" name="q"/>
             <input type="submit"/>
         </form>
         
         {% block content %}
         {% endblock content %}
-
+        
+        <div><a href="/articles/create/">create an article</a></div>
         <div><a href="/">back to home</a></div>
     </body>
 </html>
