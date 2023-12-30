@@ -5,6 +5,7 @@ import random
 
 # Create your models here.
 
+
 class Article(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(unique=True, blank=True, null=True)
@@ -20,6 +21,7 @@ class Article(models.Model):
 
     #     return super().save(*args, **kwargs)
 
+
 def find_available_slug(instance, slug: str) -> str:
     qs = instance.__class__.objects.filter(slug=slug).exclude(id=instance.id)
     if qs.exists():
@@ -27,17 +29,22 @@ def find_available_slug(instance, slug: str) -> str:
     else:
         return slug
 
-def slugify_instance_title(instance : Article) -> Article:
+
+def slugify_instance_title(instance: Article) -> Article:
     return find_available_slug(instance, slugify(instance.title))
+
 
 def article_pre_save(sender, instance: Article, *args, **kwargs):
     print('pre_save')
     if instance.slug is None:
         instance.slug = slugify_instance_title(instance)
 
+
 pre_save.connect(article_pre_save, sender=Article)
+
 
 def article_post_save(*args, **kwargs):
     print('post_save')
+
 
 post_save.connect(article_post_save, sender=Article)

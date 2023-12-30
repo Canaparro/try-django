@@ -6,10 +6,11 @@ from .forms import ArticleForm
 
 # Create your views here.
 
+
 @login_required
 def article_create_view(request):
     form = ArticleForm(request.POST or None)
-    context={
+    context = {
         "form": form
     }
     if form.is_valid():
@@ -35,7 +36,7 @@ def article_search_view(request):
 
 def article_detail_view(request, id: int = None):
     article = Article.objects.get(id=id) if id else None
-    
+
     context = {
         "article": article
     }
