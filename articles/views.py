@@ -16,22 +16,17 @@ def article_create_view(request):
     if form.is_valid():
         article = form.save()
         return redirect('article-detail', slug=article.slug)
-    #     context['article'] = article
 
     return render(request, "articles/create.html", context=context)
 
 
 def article_search_view(request):
-    params: dict = request.GET
-    query = params.get('q')
-    article = None
-    try:
-        query = int(query)
-    except:
-        query = None
+    query: str = request.GET.get('q')
     if query is not None:
-        article = Article.objects.get(id=query)
-    context = {"article": article}
+        qs = Article.objects.search(query)
+    else:
+        qs = Article.objects.all()
+    context = {"articles": qs}
     return render(request, "articles/search.html", context=context)
 
 
