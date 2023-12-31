@@ -2,13 +2,13 @@ from django.test import TestCase
 
 # Create your tests here.
 
-from .models import Article
+from .models import Article, slugify_instance_title
 
 
 class ArticleTestCase(TestCase):
 
     def setUp(self):
-        self.number_of_articles = 5
+        self.number_of_articles = 50
         for i in range(self.number_of_articles):
             Article(title='hello world', content='something else').save()
 
@@ -30,3 +30,8 @@ class ArticleTestCase(TestCase):
         for obj in qs:
             slug = obj.slug
             self.assertNotEqual(slug, 'hello-world')
+
+    def test_slugify_instante_title(self):
+        new_slugs = Article.objects.all().values_list('slug', flat=True)
+        unique_slugs = list(set(new_slugs))
+        self.assertEqual(len(new_slugs), len(unique_slugs))
