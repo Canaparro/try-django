@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'articles',
+    'recipes',
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,6 @@ if POSTGRES_READY:
             "PORT": POSTGRES_PORT,
         }
     }
-
 
 
 # Password validation
