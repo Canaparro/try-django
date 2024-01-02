@@ -2,3 +2,4 @@ django>=4.0
 django-dotenv
 gunicorn
 psycopg2-binary
+pint
